@@ -178,6 +178,11 @@ svg.ico,.ti-ico svg,.step-ico svg,.ck svg,.announce-text svg{
 .hero-centered .hero-actions{margin:.7rem 0 0}
 .hero-note{display:inline-flex;align-items:center;gap:.5rem;font-size:.92rem;color:#c2cad6}
 .hero-note .ico{width:18px;height:18px;color:var(--gold)}
+/* dica de scroll (preenche o espaço e some ao rolar) */
+.scroll-cue{position:absolute;bottom:3.4vh;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:2;color:var(--muted);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;white-space:nowrap}
+.scroll-cue:hover{color:#e3e8f0}
+.scroll-cue svg{width:24px;height:24px;fill:none;stroke:var(--gold);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:cueBounce 1.8s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(255,193,40,.5))}
+@keyframes cueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
 /* legenda que surge quando a taça está grande */
 .tr-caption{position:absolute;left:0;right:0;bottom:9%;text-align:center;z-index:4;pointer-events:none;opacity:calc((var(--p,0) - .58) * 3.2);transform:translateY(calc((1 - var(--p,0)) * 24px))}
@@ -432,12 +437,10 @@ svg.ico,.ti-ico svg,.step-ico svg,.ck svg,.announce-text svg{
 }
 /* Mobile / menu */
 @media (max-width:900px){
-  /* mobile: hero compacto, sem o pin/zoom da taça (elimina o vazio) */
-  .hero-center{height:auto}
-  .hero-sticky{position:static;height:auto;min-height:0;align-items:center;padding:clamp(2.2rem,9vw,3.8rem) 0}
-  .hero-centered{gap:1rem}
-  .ht-trophy-img{transform:none}
-  .tr-caption,.hero-confetti{display:none}
+  /* mobile: mantém a animação da taça; conteúdo distribuído p/ preencher a tela */
+  .ht-trophy-img{--grow:4.5}
+  .hero-centered{gap:clamp(1.4rem,4.5vh,2.8rem)}
+  .ht-trophy-img{transform:translateY(calc(var(--p,0) * 15vh)) scale(calc(1 + var(--p,0) * var(--grow,4.5)))}
   .hero-inner,.why-grid,.vip-grid{grid-template-columns:1fr}
   .hero{padding-top:1.5rem;text-align:center}
   .hero-copy h1{margin-inline:auto}
