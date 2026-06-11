@@ -13,7 +13,7 @@
    (a coluna de pontuação pode se chamar Tickets, Pontos ou Pontuação)
    ============================================================ */
 const RANKING_CONFIG = {
-  CSV_URL: "",          // <-- cole aqui o link CSV publicado da planilha
+  CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrnPeT4jNAtqvMKD_mIcOqLJm5gmZ1c-4345ooJ2RCJVqWRfC20dsEYTua517UCuyPIqFj4qam2s8i/pub?output=csv",
   TOP_N: 5,             // quantas posições mostrar
   REFRESH_MS: 60000     // atualiza a cada 60s (0 = não atualizar)
 };
