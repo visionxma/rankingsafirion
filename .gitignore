@@ -1,0 +1,12 @@
+# Imagem-fonte pesada (usamos a versão otimizada assets/taca.webp)
+taça.png
+taca.png
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/*
+!.vscode/settings.json
