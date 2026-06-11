@@ -88,12 +88,16 @@ const RANKING_CONFIG = {
     return out;
   }
 
+  const tt = (k, fb) => (window.t ? (window.t(k) || fb) : fb);
+  let lastData = null, lastDemo = false;
+
   function render(data, isDemo) {
+    lastData = data; lastDemo = isDemo;
     data = data.slice().sort((a, b) => b.tickets - a.tickets).slice(0, RANKING_CONFIG.TOP_N);
     if (podiumEl) podiumEl.innerHTML = '';
-    if (!data.length) { listEl.innerHTML = '<li class="rank-loading">Nenhum participante ainda.</li>'; return; }
+    if (!data.length) { listEl.innerHTML = '<li class="rank-loading">' + tt('rank.empty', 'Nenhum participante ainda.') + '</li>'; return; }
 
-    // leaderboard único e sóbrio; top 3 com badge de posição destacado
+    const unit1 = tt('rank.ticket1', 'ticket'), unitN = tt('rank.tickets', 'tickets');
     listEl.innerHTML = data.map((d, idx) => {
       const pos = idx + 1;
       const topCls = pos <= 3 ? ' top t' + pos : '';
@@ -102,13 +106,13 @@ const RANKING_CONFIG = {
         '<span class="rank-pos">' + pos + '</span>' +
         '<span class="rank-av">' + esc(initials(d.name)) + '</span>' +
         '<span class="rank-name">' + esc(d.name) + (d.city ? '<small>' + esc(d.city) + '</small>' : '') + '</span>' +
-        '<span class="rank-pts">' + fmt(t) + '<small>' + (t === 1 ? 'ticket' : 'tickets') + '</small></span>' +
+        '<span class="rank-pts">' + fmt(t) + '<small>' + (t === 1 ? unit1 : unitN) + '</small></span>' +
       '</li>';
     }).join('');
 
     noteEl.textContent = isDemo
-      ? 'Dados de exemplo — conecte sua planilha no arquivo ranking.js (CSV_URL).'
-      : 'Atualizado automaticamente a partir da planilha.';
+      ? tt('rank.noteDemo', 'Dados de exemplo — conecte sua planilha no arquivo ranking.js.')
+      : tt('rank.noteAuto', 'Atualizado automaticamente a partir da planilha.');
   }
 
   async function load() {
@@ -123,6 +127,9 @@ const RANKING_CONFIG = {
       render(DEMO, true);
     }
   }
+
+  // re-renderiza ao trocar de idioma
+  window.addEventListener('langchange', () => { if (lastData) render(lastData, lastDemo); });
 
   load();
   if (RANKING_CONFIG.REFRESH_MS > 0) setInterval(load, RANKING_CONFIG.REFRESH_MS);

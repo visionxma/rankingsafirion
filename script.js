@@ -116,7 +116,10 @@
       var k = el.getAttribute('data-cd');
       if (map[k] !== undefined && el.textContent !== map[k]) el.textContent = map[k];
     });
-    if (stickyCount) stickyCount.textContent = 'encerra em ' + d + 'd ' + pad(h) + 'h ' + pad(m) + 'm';
+    if (stickyCount) {
+      var ends = (window.t ? window.t('announce.ends') : 'encerra em');
+      stickyCount.textContent = ends + ' ' + d + 'd ' + pad(h) + 'h ' + pad(m) + 'm';
+    }
   }
   tick();
   setInterval(tick, 1000);
@@ -193,10 +196,14 @@
     function esc(s){ return s.replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
 
     function renderToast() {
+      var L = (window.I18N && window.getLang && window.I18N[window.getLang()]) || null;
+      var acts = (L && L.toastActions) || actions;
+      var tms = (L && L.toastTimes) || times;
+      var verified = (window.t ? window.t('toast.verified') : 'Verificado');
       var p = people[(i * 5) % people.length];
-      var act = actions[(i * 7) % actions.length];
+      var act = acts[(i * 7) % acts.length];
       var col = avColors[(i * 3) % avColors.length];
-      var t = times[(i * 11) % times.length];
+      var t = tms[(i * 11) % tms.length];
       i++;
       var initials = (p[0][0] + p[1][0]).toUpperCase();
       var name = p[0] + ' ' + p[1][0] + '.';
@@ -208,7 +215,7 @@
           '<div class="toast-body">' +
             '<div class="toast-name">' + esc(name) + '</div>' +
             '<div class="toast-action">' + esc(act) + '</div>' +
-            '<div class="toast-meta"><span class="live"><i></i>Verificado</span><span class="sep">·</span>' + t + '<span class="sep">·</span>' + esc(p[2]) + '</div>' +
+            '<div class="toast-meta"><span class="live"><i></i>' + esc(verified) + '</span><span class="sep">·</span>' + esc(t) + '<span class="sep">·</span>' + esc(p[2]) + '</div>' +
           '</div>' +
         '</div>' +
         '<div class="toast-progress"></div>';
