@@ -433,6 +433,10 @@ svg.ico,.ti-ico svg,.step-ico svg,.ck svg,.announce-text svg{
 /* Mobile / menu */
 @media (max-width:900px){
   .ht-trophy-img{--grow:4.5}
+  /* hero mais compacto e colado no topo no mobile */
+  .hero-sticky{align-items:flex-start;padding-top:clamp(1.2rem,5vh,3rem)}
+  .hero-centered{gap:.9rem}
+  .ht-trophy-img{transform:translateY(calc(var(--p,0) * 20vh)) scale(calc(1 + var(--p,0) * var(--grow,4.5)))}
   .hero-inner,.why-grid,.vip-grid{grid-template-columns:1fr}
   .hero{padding-top:1.5rem;text-align:center}
   .hero-copy h1{margin-inline:auto}

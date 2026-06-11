@@ -281,12 +281,12 @@
     confettiField.appendChild(cFrag);
   }
 
-  /* ---------- Ticket modal ---------- */
+  /* ---------- Ticket modal (todos os CTAs abrem o modal) ---------- */
   var modal = document.getElementById('ticketModal');
-  var ticketBtn = document.getElementById('ticketBtn');
-  if (modal && ticketBtn) {
+  if (modal) {
     var lastFocus = null;
-    function openModal() {
+    function openModal(e) {
+      if (e) e.preventDefault();
       lastFocus = document.activeElement;
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
@@ -302,7 +302,10 @@
         if (lastFocus) lastFocus.focus();
       }, 240);
     }
-    ticketBtn.addEventListener('click', openModal);
+    // qualquer CTA marcado com data-ticket abre o modal
+    document.querySelectorAll('[data-ticket]').forEach(function (el) {
+      el.addEventListener('click', openModal);
+    });
     modal.querySelectorAll('[data-close]').forEach(function (el) {
       el.addEventListener('click', closeModal);
     });
