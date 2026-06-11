@@ -14,7 +14,7 @@
    ============================================================ */
 const RANKING_CONFIG = {
   CSV_URL: "",          // <-- cole aqui o link CSV publicado da planilha
-  TOP_N: 10,            // quantas posições mostrar
+  TOP_N: 5,             // quantas posições mostrar
   REFRESH_MS: 60000     // atualiza a cada 60s (0 = não atualizar)
 };
 
@@ -32,12 +32,7 @@ const RANKING_CONFIG = {
     { name: 'Marina', tickets: 7, city: 'Curitiba, PR' },
     { name: 'Léo Andrade', tickets: 6, city: 'Rio de Janeiro, RJ' },
     { name: 'Bia R.', tickets: 5, city: 'Recife, PE' },
-    { name: 'Carlos M.', tickets: 5, city: 'Fortaleza, CE' },
-    { name: 'Paty', tickets: 4, city: 'Campinas, SP' },
-    { name: 'Diego S.', tickets: 3, city: 'Brasília, DF' },
-    { name: 'Fê Teixeira', tickets: 3, city: 'Salvador, BA' },
-    { name: 'Thiago', tickets: 2, city: 'Goiânia, GO' },
-    { name: 'Amanda', tickets: 1, city: 'Floripa, SC' }
+    { name: 'Carlos M.', tickets: 4, city: 'Fortaleza, CE' }
   ];
 
   function esc(s) {
