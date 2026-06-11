@@ -26,25 +26,18 @@ const RANKING_CONFIG = {
   const noteEl = document.getElementById('rankNote');
   if (!listEl || !podiumEl) return;
 
-  const AV_COLORS = [
-    'linear-gradient(150deg,#2389e6,#0f4f96)',
-    'linear-gradient(150deg,#1aa179,#0c6f4f)',
-    'linear-gradient(150deg,#c98a2b,#8a5b14)',
-    'linear-gradient(150deg,#6b59d6,#3d2f8f)',
-    'linear-gradient(150deg,#c44a6b,#82243d)'
-  ];
-
+  // dados de exemplo: saldos baixos (campanha recém-começada) e nomes naturais
   const DEMO = [
-    { name: 'João Pedro S.', tickets: 182, city: 'São Paulo, SP' },
-    { name: 'Mariana Costa', tickets: 167, city: 'Curitiba, PR' },
-    { name: 'Rafael Almeida', tickets: 153, city: 'Rio de Janeiro, RJ' },
-    { name: 'Camila Rocha', tickets: 139, city: 'Recife, PE' },
-    { name: 'Bruno Carvalho', tickets: 124, city: 'Fortaleza, CE' },
-    { name: 'Patrícia Lima', tickets: 118, city: 'Campinas, SP' },
-    { name: 'Diego Martins', tickets: 102, city: 'Brasília, DF' },
-    { name: 'Fernanda Teixeira', tickets: 95, city: 'Salvador, BA' },
-    { name: 'Thiago Fernandes', tickets: 88, city: 'Goiânia, GO' },
-    { name: 'Amanda Ribeiro', tickets: 79, city: 'Florianópolis, SC' }
+    { name: 'João P.', tickets: 9, city: 'São Paulo, SP' },
+    { name: 'Marina', tickets: 7, city: 'Curitiba, PR' },
+    { name: 'Léo Andrade', tickets: 6, city: 'Rio de Janeiro, RJ' },
+    { name: 'Bia R.', tickets: 5, city: 'Recife, PE' },
+    { name: 'Carlos M.', tickets: 5, city: 'Fortaleza, CE' },
+    { name: 'Paty', tickets: 4, city: 'Campinas, SP' },
+    { name: 'Diego S.', tickets: 3, city: 'Brasília, DF' },
+    { name: 'Fê Teixeira', tickets: 3, city: 'Salvador, BA' },
+    { name: 'Thiago', tickets: 2, city: 'Goiânia, GO' },
+    { name: 'Amanda', tickets: 1, city: 'Floripa, SC' }
   ];
 
   function esc(s) {
@@ -102,36 +95,21 @@ const RANKING_CONFIG = {
 
   function render(data, isDemo) {
     data = data.slice().sort((a, b) => b.tickets - a.tickets).slice(0, RANKING_CONFIG.TOP_N);
+    if (podiumEl) podiumEl.innerHTML = '';
     if (!data.length) { listEl.innerHTML = '<li class="rank-loading">Nenhum participante ainda.</li>'; return; }
 
-    // Pódio (top 3) na ordem 2º, 1º, 3º
-    const top3 = data.slice(0, 3);
-    const order = top3.length === 3 ? [1, 0, 2] : top3.map((_, i) => i);
-    podiumEl.innerHTML = order.map(i => {
-      const d = top3[i]; if (!d) return '';
-      const pos = i + 1;
-      const col = AV_COLORS[(i) % AV_COLORS.length];
-      return '<div class="podium-item p' + pos + '">' +
-        '<div class="podium-medal">' + pos + 'º</div>' +
-        '<div class="podium-av" style="background:' + col + '">' + esc(initials(d.name)) + '</div>' +
-        '<div class="podium-name">' + esc(d.name) + '</div>' +
-        '<div class="podium-pts">' + fmt(d.tickets) + ' <span>tickets</span></div>' +
-        '<div class="podium-bar"></div>' +
-      '</div>';
-    }).join('');
-
-    // Lista (4º em diante)
-    const rest = data.slice(3);
-    listEl.innerHTML = rest.map((d, idx) => {
-      const pos = idx + 4;
-      const col = AV_COLORS[(pos) % AV_COLORS.length];
-      return '<li class="rank-row">' +
-        '<span class="rank-pos">' + pos + 'º</span>' +
-        '<span class="rank-av" style="background:' + col + '">' + esc(initials(d.name)) + '</span>' +
+    // leaderboard único e sóbrio; top 3 com badge de posição destacado
+    listEl.innerHTML = data.map((d, idx) => {
+      const pos = idx + 1;
+      const topCls = pos <= 3 ? ' top t' + pos : '';
+      const t = d.tickets;
+      return '<li class="rank-row' + topCls + '">' +
+        '<span class="rank-pos">' + pos + '</span>' +
+        '<span class="rank-av">' + esc(initials(d.name)) + '</span>' +
         '<span class="rank-name">' + esc(d.name) + (d.city ? '<small>' + esc(d.city) + '</small>' : '') + '</span>' +
-        '<span class="rank-pts">' + fmt(d.tickets) + '<small>tickets</small></span>' +
+        '<span class="rank-pts">' + fmt(t) + '<small>' + (t === 1 ? 'ticket' : 'tickets') + '</small></span>' +
       '</li>';
-    }).join('') || '';
+    }).join('');
 
     noteEl.textContent = isDemo
       ? 'Dados de exemplo — conecte sua planilha no arquivo ranking.js (CSV_URL).'
