@@ -1,6 +1,17 @@
 (function () {
   'use strict';
 
+  /* ---------- Bloqueia zoom de pinça/duplo-toque (iOS ignora user-scalable) ---------- */
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (ev) {
+    document.addEventListener(ev, function (e) { e.preventDefault(); }, { passive: false });
+  });
+  var lastTap = 0;
+  document.addEventListener('touchend', function (e) {
+    var now = Date.now();
+    if (now - lastTap <= 300 && e.touches.length === 0) e.preventDefault(); // anti duplo-toque-zoom
+    lastTap = now;
+  }, { passive: false });
+
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
