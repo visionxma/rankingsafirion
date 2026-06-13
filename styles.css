@@ -366,12 +366,20 @@ svg.ico,.ti-ico svg,.step-ico svg,.ck svg,.announce-text svg{
 
 /* ===================== FOOTER ===================== */
 .site-footer{background:#070b14;border-top:1px solid var(--line);padding-top:2.6rem}
-.footer-row{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;padding-bottom:2rem}
-.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
-.footer-links a{color:var(--muted);font-size:.9rem;transition:color .15s}
-.footer-links a:hover{color:var(--gold)}
-.disclaimer{border-top:1px solid var(--line);padding:1.6rem 0 2.2rem}
-.disclaimer p{color:#6c7484;font-size:.8rem;margin-bottom:.6rem;max-width:90ch}
+.footer-top{display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap;padding-bottom:2.4rem}
+.footer-about{max-width:380px}
+.footer-about .brand{display:inline-flex;margin-bottom:1rem}
+.footer-desc{color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1.1rem}
+.footer-mail{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.9rem;transition:color .15s}
+.footer-mail svg{fill:currentColor}
+.footer-mail:hover{color:var(--gold)}
+.footer-legal h4{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:1.1rem}
+.footer-links-col{display:flex;flex-direction:column;gap:.7rem}
+.footer-links-col a{color:var(--muted);font-size:.9rem;transition:color .15s}
+.footer-links-col a:hover{color:var(--gold)}
+.disclaimer{border-top:1px solid var(--line);padding:1.6rem 0 2.2rem;text-align:center}
+.disclaimer p{color:#6c7484;font-size:.8rem;margin-bottom:.6rem;margin-inline:auto;max-width:90ch}
+.footer-legal-entity{font-size:.78rem!important;color:#5b6373!important}
 .copyright{color:#525a69!important}
 
 /* ===================== STICKY MOBILE CTA ===================== */
