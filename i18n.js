@@ -194,9 +194,9 @@
   const NAMES = { pt: 'Português', es: 'Español', en: 'English', fr: 'Français' };
 
   function detect() {
+    // Respeita a escolha salva pelo usuário; caso contrário, padrão é português.
     try { var s = localStorage.getItem('lang'); if (s && SUPPORTED.indexOf(s) >= 0) return s; } catch (e) {}
-    var n = (navigator.language || 'pt').slice(0, 2).toLowerCase();
-    return SUPPORTED.indexOf(n) >= 0 ? n : 'pt';
+    return 'pt';
   }
 
   var lang = detect();
